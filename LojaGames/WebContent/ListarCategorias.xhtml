@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<meta charset="UTF-8" />
+	<title>Listar Categorias</title>
+</h:head>
+<h:body>
+	<ui:composition template="Template.xhtml">
+		<ui:define name="conteudo">
+			<h:form>
+				<p:dataTable value="#{mCategoriaBean.categorias}"
+					var="categoriaCadastrada">
+
+					<p:column headerText="Id">
+						<h:outputText value="#{categoriaCadastrada.id}" />
+					</p:column>
+					<p:column headerText="Nome">
+						<h:outputText value="#{categoriaCadastrada.nome}" />
+					</p:column>
+					<p:column headerText="Descricao">
+						<h:outputText value="#{categoriaCadastrada.descricao}" />
+					</p:column>
+					<p:column headerText="Ações">
+						<p:commandButton value="Alterar"
+							action="#{mCategoriaBean.enviarDadosParaAlterar(categoriaCadastrada)}" />
+						<p:commandButton value="Remover"
+							action="#{mCategoriaBean.removerCategoria(categoriaCadastrada)}" />
+					</p:column>
+				</p:dataTable>
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</h:body>
+
+</html>

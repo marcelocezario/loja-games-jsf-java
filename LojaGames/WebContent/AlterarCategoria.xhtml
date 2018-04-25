@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<meta charset="UTF-8" />
+	<title>Alterar Categoria</title>
+</h:head>
+
+<h:body>
+	<ui:composition template="Template.xhtml">
+		<ui:define name="conteudo">
+			<h:form acceptcharset="ISO-8859-1">
+				<h:inputHidden value="#{mCategoriaBean.categoria.id}" />
+				<h:panelGrid columns="2">
+					<p:outputLabel value="Nome:" />
+					<p:inputText pt:placeholder="Digite o nome da categoria"
+						value="#{mCategoriaBean.categoria.nome}">
+					</p:inputText>
+					
+					<p:outputLabel value="Descrição" />
+					<p:inputTextarea pt:placeholder="Digite a descrição da categoria"
+						value="#{mCategoriaBean.categoria.descricao}">
+					</p:inputTextarea>
+					<p:commandButton value="Alterar"
+						action="#{mCategoriaBean.alterarCategoria(mCategoriaBean.categoria)}" />
+				</h:panelGrid>
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

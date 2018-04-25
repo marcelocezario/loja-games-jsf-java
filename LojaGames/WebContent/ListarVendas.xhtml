@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<meta charset="UTF-8" />
+	<title>Listar Vendas</title>
+</h:head>
+<h:body>
+	<ui:composition template="Template.xhtml">
+		<ui:define name="conteudo">
+			<h:form id="form">
+				<p:growl id="msgs" showDetail="true" />
+
+				<p:dataTable id="tabelaVendas" value="#{mVendaBean.vendas}"
+					var="vendaRealizada">
+
+					<p:column headerText="Id">
+						<h:outputText value="#{vendaRealizada.id}" />
+					</p:column>
+					<p:column headerText="Nome do cliente">
+						<h:outputText value="#{vendaRealizada.cliente}" />
+					</p:column>
+					<p:column headerText="Número CPF">
+						<h:outputText value="#{vendaRealizada.cpf}" />
+					</p:column>
+					<p:column headerText="Data da venda">
+						<h:outputText value="#{vendaRealizada.dataDaVenda.time}">
+							<f:convertDateTime pattern="dd/MM/yyyy" />
+						</h:outputText>
+					</p:column>
+					<p:column headerText="Valor total da venda">
+						<h:outputText value="R$ #{vendaRealizada.valorDaVenda}" />
+					</p:column>
+
+					<p:column headerText="Detalhes">
+
+						<p:commandButton value="Exibir detalhes"
+							onclick="PF('dlgVendaDetalhada').show();"
+							update="formDialog:vendaDetalhada" process="@this"
+							action="#{mVendaBean.enviarDadosParaListar(vendaRealizada)}">
+						</p:commandButton>
+					</p:column>
+				</p:dataTable>
+			</h:form>
+
+			<h:form id="formDialog">
+				<p:dialog header="Detalhes da venda" widgetVar="dlgVendaDetalhada"
+					modal="true" id="dlgDetalhes">
+
+					<h:panelGroup id="vendaDetalhada">
+
+						<p:panelGrid columns="1" layout="grid">
+							<h:outputText value="Id venda: #{mVendaBean.venda.id}" />
+							<h:outputText value="Cliente: #{mVendaBean.venda.cliente}" />
+							<h:outputText value="CPF: #{mVendaBean.venda.cpf}" />
+							<h:outputText
+								value="Data da venda: #{mVendaBean.venda.dataDaVenda.time}">
+								<f:convertDateTime pattern="dd/MM/yyyy" />
+							</h:outputText>
+							<h:outputText
+								value="Valor total da venda: R$ #{mVendaBean.venda.valorDaVenda}" />
+							<br />
+						</p:panelGrid>
+
+
+						<p:dataTable var="itemCadastrado"
+							value="#{mVendaBean.itensVendaDetalhado}" id="itensVenda">
+							<f:facet name="header">
+            Listagem produtos vendidos
+        </f:facet>
+							<p:column headerText="Id">
+								<h:outputText value="#{itemCadastrado.id}" />
+							</p:column>
+							<p:column headerText="Produto">
+								<h:outputText value="#{itemCadastrado.produto.nome}" />
+							</p:column>
+							<p:column headerText="Quantidade">
+								<h:outputText value="#{itemCadastrado.quantidade}" />
+							</p:column>
+							<p:column headerText="Valor total item">
+								<h:outputText value="R$ #{itemCadastrado.valorItem}" />
+							</p:column>
+						</p:dataTable>
+
+						<br />
+
+						<h:outputText value="Autenticação #{mVendaBean.venda.idSessao}" />
+					</h:panelGroup>
+				</p:dialog>
+			</h:form>
+
+
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

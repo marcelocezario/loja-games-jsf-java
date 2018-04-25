@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<meta charset="UTF-8" />
+</h:head>
+
+<h:body>
+
+	<p:menubar>
+
+		<p:submenu label="Produtos">
+			<p:menuitem value="Cadastrar" url="CadastrarProduto.xhtml" />
+			<p:menuitem value="Listar" url="ListarProdutos.xhtml" />
+			<p:menuitem value="Registrar entrada em estoque" url="AdicionarEstoqueProduto.xhtml" />
+		</p:submenu>
+
+		<p:submenu label="Categorias">
+			<p:menuitem value="Cadastrar" url="CadastrarCategoria.xhtml" />
+			<p:menuitem value="Listar" url="ListarCategorias.xhtml" />
+		</p:submenu>
+
+		<p:submenu label="Marcas">
+			<p:menuitem value="Cadastrar" url="CadastrarMarca.xhtml" />
+			<p:menuitem value="Listar" url="ListarMarcas.xhtml" />
+		</p:submenu>
+
+
+		<p:menuitem value="Vendas" url="ListarVendas.xhtml"/>
+			
+		<p:menuitem value="Carrinho de Compras" url="ListarCarrinho.xhtml"/>
+
+	</p:menubar>
+
+	<div id="conteudo" style="margin: 30px">
+		<ui:insert name="conteudo" />
+
+	</div>
+
+	<hr />
+	<footer>
+		<p:outputLabel value="Projeto Final Java Web 2017 professor Diogo Deconto" />
+	</footer>
+
+
+
+
+</h:body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<meta charset="UTF-8" />
+	<title>Listar Produtos</title>
+</h:head>
+<h:body>
+	<ui:composition template="Template.xhtml">
+		<ui:define name="conteudo">
+			<h:form>
+				<p:dataTable value="#{mProdutoBean.produtos}"
+					var="produtoCadastrado">
+
+
+					<p:column headerText="Id">
+						<h:outputText value="#{produtoCadastrado.id}" />
+					</p:column>
+					<p:column headerText="Nome">
+						<h:outputText value="#{produtoCadastrado.nome}" />
+					</p:column>
+					<p:column headerText="Marca">
+						<h:outputText value="#{produtoCadastrado.marca.nome}" />
+					</p:column>
+					<p:column headerText="Categoria">
+						<h:outputText value="#{produtoCadastrado.categoria.nome}" />
+					</p:column>
+					<p:column headerText="Valor">
+						<h:outputText value="#{produtoCadastrado.valor}" />
+					</p:column>
+					<p:column headerText="Quantidade em Estoque">
+						<h:outputText value="#{produtoCadastrado.quantidadeEstoque}" />
+					</p:column>
+					<p:column headerText="Descricao">
+						<h:outputText value="#{produtoCadastrado.descricao}" />
+					</p:column>
+
+
+					<p:column headerText="Ações">
+						<p:commandButton value="Alterar"
+							action="#{mProdutoBean.enviarDadosParaAlterar(produtoCadastrado)}" />
+						<p:commandButton value="Remover"
+							action="#{mProdutoBean.removerProduto(produtoCadastrado)}" />
+					</p:column>
+
+					<p:column headerText="Quantidade Venda">
+
+						<p:spinner id="minMax" value="#{mItemVendaBean.item.quantidade}"
+							min="0" max="#{produtoCadastrado.quantidadeEstoque}"
+							process="@this" style="width:100px;" size="4" onkeypress="return false">
+							<p:ajax event="blur" />
+						</p:spinner>
+					</p:column>
+
+					<p:column headerText="Venda">
+						<p:commandButton value="Adicionar ao carrinho"
+							action="#{mItemVendaBean.adicionarItemVenda(mItemVendaBean.item)}"
+							process="@this" onclick="PF('dlg2').show();">
+							<f:setPropertyActionListener value="#{produtoCadastrado.id}"
+								target="#{mItemVendaBean.idProduto}" />
+
+							<p:dialog header="Confirmação" widgetVar="dlg2" modal="true"
+								height="40">
+								<br />
+								<h:outputText value="Produto adicionado ao carrinho de compras com sucesso!" />
+								<br />
+							</p:dialog>
+						</p:commandButton>
+					</p:column>
+
+				</p:dataTable>
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>
+

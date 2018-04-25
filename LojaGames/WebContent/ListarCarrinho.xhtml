@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<meta charset="UTF-8" />
+	<title>Listar Carrinho de Compras</title>
+</h:head>
+<h:body>
+	<ui:composition template="Template.xhtml">
+		<ui:define name="conteudo">
+			<h:form>
+				<p:dataTable value="#{mItemVendaBean.itens}" var="itemCadastrado">
+
+					<p:column headerText="Id">
+						<h:outputText value="#{itemCadastrado.id}" />
+					</p:column>
+					<p:column headerText="Produto">
+						<h:outputText value="#{itemCadastrado.produto.nome}" />
+					</p:column>
+					<p:column headerText="Quantidade">
+						<h:outputText value="#{itemCadastrado.quantidade}" />
+					</p:column>
+					<p:column headerText="Valor total item">
+						<h:outputText value="R$ #{itemCadastrado.valorItem}" />
+					</p:column>
+					<p:column headerText="Remover item do carrinho">
+					<p:commandButton value="Remover item"
+							action="#{mItemVendaBean.removerItem(itemCadastrado)}" />
+					</p:column>
+					
+
+					<p:columnGroup type="footer">
+						<p:row>
+							<p:column colspan="2" style="text-align:right"
+								footerText="Totais:" />
+							<p:column
+								footerText="#{mItemVendaBean.quantidadeTotalCarrinho} unidades" />
+							<p:column footerText="R$ #{mItemVendaBean.valorTotalCarrinho}" />
+
+						</p:row>
+					</p:columnGroup>
+
+				</p:dataTable>
+
+
+				<h:panelGrid columns="1" cellpadding="5">
+					<p:commandButton value="Finalizar Venda" type="button"
+						onclick="PF('dlg2').show();" />
+				</h:panelGrid>
+
+				<p:dialog header="Finalizar Venda" widgetVar="dlg2" modal="true">
+					<br />
+					<h:outputText value="Digite o nome do cliente:" />
+					<p:inputText pt:placeholder="Nome do cliente"
+						value="#{mVendaBean.venda.cliente}" height="200"></p:inputText>
+					<br />
+					<br />
+					<h:outputText value="Digite o número do CPF:" />
+					<p:inputText pt:placeholder="999.999.999-99"
+						value="#{mVendaBean.venda.cpf}"></p:inputText>
+					<br />
+					<br />
+					<p:commandButton value="Efetivar a compra"
+						action="#{mVendaBean.adicionarVenda(mVendaBean.venda)}">
+						<f:setPropertyActionListener
+							value="#{mItemVendaBean.valorTotalCarrinho}"
+							target="#{mVendaBean.venda.valorDaVenda}" />
+					</p:commandButton>
+					<br />
+				</p:dialog>
+
+
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

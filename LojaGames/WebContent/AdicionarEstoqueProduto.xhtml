@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<meta charset="UTF-8" />
+	<title>Alterar Categoria</title>
+</h:head>
+
+<h:body>
+	<ui:composition template="Template.xhtml">
+		<ui:define name="conteudo">
+			<h:form acceptcharset="ISO-8859-1">
+				<h:panelGrid columns="2">
+
+					<p:outputLabel value="Selecione um produto" />
+
+					<p:selectOneMenu value="#{mProdutoBean.produto.id}">
+						<f:selectItem itemLabel=" -- Selecione -- " itemValue="0">
+						</f:selectItem>
+						<f:selectItems value="#{mProdutoBean.produtos}"
+							var="produtoCadastrado" itemLabel="#{produtoCadastrado.nome}"
+							itemValue="#{produtoCadastrado.id}">
+						</f:selectItems>
+					</p:selectOneMenu>
+
+					<p:outputLabel value="Quantidade a ser adicionada" />
+					<p:spinner id="minMax" pt:placeholder="Informe a quantidade"
+						value="#{mProdutoBean.quantidadeEntradaEstoque}" min="0" />
+
+					<p:commandButton value="Adicionar estoque"
+						action="#{mProdutoBean.adicionarEstoque(mProdutoBean.produto.id, mProdutoBean.quantidadeEntradaEstoque)}">
+					</p:commandButton>
+
+				</h:panelGrid>
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>
